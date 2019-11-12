@@ -1,5 +1,6 @@
 package com.hdu.gmall;
 
+
 import com.hdu.gmall.bean.UmsMember;
 import com.hdu.gmall.service.UserService;
 import org.junit.Test;
