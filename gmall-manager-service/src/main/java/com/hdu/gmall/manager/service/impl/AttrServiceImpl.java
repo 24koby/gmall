@@ -1,7 +1,7 @@
 package com.hdu.gmall.manager.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
-import com.hdu.gmall.bean.AttrService;
+import com.hdu.gmall.service.AttrService;
 import com.hdu.gmall.bean.PmsBaseAttrInfo;
 import com.hdu.gmall.bean.PmsBaseAttrValue;
 import com.hdu.gmall.manager.mapper.PmsBaseAttrInfoMapper;

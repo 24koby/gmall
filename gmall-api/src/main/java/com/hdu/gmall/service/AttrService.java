@@ -1,4 +1,7 @@
-package com.hdu.gmall.bean;
+package com.hdu.gmall.service;
+
+import com.hdu.gmall.bean.PmsBaseAttrInfo;
+import com.hdu.gmall.bean.PmsBaseAttrValue;
 
 import java.util.List;
 

@@ -1,11 +1,9 @@
 package com.hdu.gmall.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
-import com.hdu.gmall.bean.AttrService;
+import com.hdu.gmall.service.AttrService;
 import com.hdu.gmall.bean.PmsBaseAttrInfo;
 import com.hdu.gmall.bean.PmsBaseAttrValue;
-import com.hdu.gmall.service.CatalogService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
