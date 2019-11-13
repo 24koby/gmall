@@ -6,6 +6,7 @@ import com.hdu.gmall.bean.PmsBaseAttrInfo;
 import com.hdu.gmall.bean.PmsBaseAttrValue;
 import com.hdu.gmall.manager.mapper.PmsBaseAttrInfoMapper;
 import com.hdu.gmall.manager.mapper.PmsBaseAttrValueMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
@@ -29,16 +30,36 @@ public class AttrServiceImpl implements AttrService {
     @Override
     public String saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
         try {
-            pmsBaseAttrInfoMapper.insertSelective(pmsBaseAttrInfo);
+            if (!StringUtils.isNotBlank(pmsBaseAttrInfo.getId())){
+                pmsBaseAttrInfoMapper.insertSelective(pmsBaseAttrInfo);
+                System.out.println(pmsBaseAttrInfo.getId());
+                List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
+                for (PmsBaseAttrValue value: attrValueList) {
+                    value.setAttrId(pmsBaseAttrInfo.getId());
+                    pmsBaseAttrValueMapper.insertSelective(value);
+                }
+            } else {
+                pmsBaseAttrInfoMapper.updateByPrimaryKeySelective(pmsBaseAttrInfo);
 
-            List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
-            for (PmsBaseAttrValue value: attrValueList) {
-                value.setAttrId(pmsBaseAttrInfo.getId());
-                pmsBaseAttrValueMapper.insertSelective(value);
+                Example e = new Example(PmsBaseAttrValue.class);
+                e.createCriteria().andEqualTo("attrId",pmsBaseAttrInfo.getId());
+                pmsBaseAttrValueMapper.deleteByExample(e);
+                for (PmsBaseAttrValue value: pmsBaseAttrInfo.getAttrValueList()) {
+                    value.setAttrId(pmsBaseAttrInfo.getId());
+                    pmsBaseAttrValueMapper.insertSelective(value);
+                }
             }
         } catch (Exception e) {
             return "error";
         }
         return "success";
+    }
+
+    @Override
+    public List<PmsBaseAttrValue> getAttrValueList(String attrId) {
+        Example e = new Example(PmsBaseAttrValue.class);
+        e.createCriteria().andEqualTo("attrId",attrId);
+        List<PmsBaseAttrValue> pmsBaseAttrValueList = pmsBaseAttrValueMapper.selectByExample(e);
+        return pmsBaseAttrValueList;
     }
 }
