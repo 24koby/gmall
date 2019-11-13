@@ -23,4 +23,11 @@ public class AttrController {
         List<PmsBaseAttrInfo> attrInfoList = attrService.getAttrInfoList(catalog3Id);
         return attrInfoList;
     }
+
+    @RequestMapping("/saveAttrInfo")
+    @ResponseBody
+    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo){
+        String success = attrService.saveAttrInfo(pmsBaseAttrInfo);
+        return "success";
+    }
 }

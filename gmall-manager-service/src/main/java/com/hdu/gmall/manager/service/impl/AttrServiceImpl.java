@@ -25,4 +25,20 @@ public class AttrServiceImpl implements AttrService {
         List<PmsBaseAttrInfo> attrInfos = pmsBaseAttrInfoMapper.selectByExample(e);
         return attrInfos;
     }
+
+    @Override
+    public String saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo) {
+        try {
+            pmsBaseAttrInfoMapper.insertSelective(pmsBaseAttrInfo);
+
+            List<PmsBaseAttrValue> attrValueList = pmsBaseAttrInfo.getAttrValueList();
+            for (PmsBaseAttrValue value: attrValueList) {
+                value.setAttrId(pmsBaseAttrInfo.getId());
+                pmsBaseAttrValueMapper.insertSelective(value);
+            }
+        } catch (Exception e) {
+            return "error";
+        }
+        return "success";
+    }
 }
