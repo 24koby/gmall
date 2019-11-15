@@ -1,6 +1,8 @@
 package com.hdu.gmall.manager.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.hdu.gmall.bean.PmsBaseSaleAttr;
+import com.hdu.gmall.bean.PmsProductSaleAttr;
 import com.hdu.gmall.service.AttrService;
 import com.hdu.gmall.bean.PmsBaseAttrInfo;
 import com.hdu.gmall.bean.PmsBaseAttrValue;
@@ -37,5 +39,10 @@ public class AttrController {
         return attrService.getAttrValueList(attrId);
     }
 
+    @RequestMapping("/baseSaleAttrList")
+    @ResponseBody
+    public List<PmsBaseSaleAttr> baseSaleAttrList(){
+        return  attrService.baseSaleAttrList();
+    }
 
 }

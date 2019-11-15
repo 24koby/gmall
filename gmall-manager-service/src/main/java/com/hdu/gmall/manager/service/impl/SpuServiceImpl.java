@@ -17,7 +17,6 @@ public class SpuServiceImpl  implements SpuService {
 
     @Override
     public List<PmsProductInfo> spuList(String catalog3Id) {
-        System.out.println(1);
         Example e = new Example(PmsProductInfo.class);
         e.createCriteria().andEqualTo("catalog3Id",catalog3Id);
         List<PmsProductInfo> pmsProductInfoList = pmsProductInfoMapper.selectByExample(e);

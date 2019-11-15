@@ -23,12 +23,10 @@ public class GmallManagerWebApplicationTests {
         TrackerClient client = new TrackerClient();
         TrackerServer trackerServer = client.getConnection();
         StorageClient storageClient = new StorageClient(trackerServer,null);
-        String[] uploadFile = storageClient.upload_file("D:/a.jpg", "jpg", null);
+        String[] uploadFile = storageClient.upload_file("C:/timg.jpg", "jpg", null);
         for (String uploadInfo: uploadFile) {
             System.out.println(uploadInfo);
         }
-
-
     }
 
 

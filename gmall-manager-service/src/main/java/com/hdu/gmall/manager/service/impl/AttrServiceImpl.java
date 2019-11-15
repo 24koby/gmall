@@ -1,6 +1,10 @@
 package com.hdu.gmall.manager.service.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.hdu.gmall.bean.PmsBaseSaleAttr;
+import com.hdu.gmall.bean.PmsProductSaleAttr;
+import com.hdu.gmall.manager.mapper.PmsBaseSaleAttrMapper;
+import com.hdu.gmall.manager.mapper.PmsProductSaleAttrMapper;
 import com.hdu.gmall.service.AttrService;
 import com.hdu.gmall.bean.PmsBaseAttrInfo;
 import com.hdu.gmall.bean.PmsBaseAttrValue;
@@ -18,7 +22,10 @@ public class AttrServiceImpl implements AttrService {
     private PmsBaseAttrInfoMapper pmsBaseAttrInfoMapper;
     @Autowired
     private PmsBaseAttrValueMapper pmsBaseAttrValueMapper;
-
+    @Autowired
+    private PmsProductSaleAttrMapper pmsProductSaleAttrMapper;
+    @Autowired
+    private PmsBaseSaleAttrMapper pmsBaseSaleAttrMapper;
     @Override
     public List<PmsBaseAttrInfo> getAttrInfoList(String catalog3Id) {
         Example e = new Example(PmsBaseAttrInfo.class);
@@ -61,5 +68,11 @@ public class AttrServiceImpl implements AttrService {
         e.createCriteria().andEqualTo("attrId",attrId);
         List<PmsBaseAttrValue> pmsBaseAttrValueList = pmsBaseAttrValueMapper.selectByExample(e);
         return pmsBaseAttrValueList;
+    }
+
+    @Override
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
+        List<PmsBaseSaleAttr> pmsBaseSaleAttrs = pmsBaseSaleAttrMapper.selectAll();
+        return pmsBaseSaleAttrs;
     }
 }
