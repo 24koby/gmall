@@ -44,7 +44,7 @@ public class PmsUploadFile {
         try {
             String[] urls = storageClient.upload_appender_file(bytes, extFileName, null);
             for (String url:urls) {
-                imgUrl.append(url);
+                imgUrl.append("/"+url);
             }
         } catch (IOException e) {
             e.printStackTrace();

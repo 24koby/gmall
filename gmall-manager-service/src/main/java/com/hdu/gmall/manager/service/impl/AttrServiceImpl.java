@@ -31,6 +31,13 @@ public class AttrServiceImpl implements AttrService {
         Example e = new Example(PmsBaseAttrInfo.class);
         e.createCriteria().andEqualTo("catalog3Id",catalog3Id);
         List<PmsBaseAttrInfo> attrInfos = pmsBaseAttrInfoMapper.selectByExample(e);
+
+        for (PmsBaseAttrInfo baseSaleAttrInfo:attrInfos) {
+            Example exp = new Example(PmsBaseAttrValue.class);
+            exp.createCriteria().andEqualTo("attrId", baseSaleAttrInfo.getId());
+            List<PmsBaseAttrValue> pmsBaseAttrValues = pmsBaseAttrValueMapper.selectByExample(exp);
+            baseSaleAttrInfo.setAttrValueList(pmsBaseAttrValues);
+        }
         return attrInfos;
     }
 
@@ -75,4 +82,7 @@ public class AttrServiceImpl implements AttrService {
         List<PmsBaseSaleAttr> pmsBaseSaleAttrs = pmsBaseSaleAttrMapper.selectAll();
         return pmsBaseSaleAttrs;
     }
+
+
+
 }
