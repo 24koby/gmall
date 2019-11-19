@@ -11,6 +11,7 @@ import com.hdu.gmall.manager.mapper.PmsSkuInfoMapper;
 import com.hdu.gmall.manager.mapper.PmsSkuSaleAttrValueMapper;
 import com.hdu.gmall.service.SkuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
@@ -52,5 +53,21 @@ public class SkuServiceImpl implements SkuService {
             return "error";
         }
         return "success";
+    }
+
+    @Override
+    public PmsSkuInfo getSkuInfoById(String skuId) {
+        Example e = new Example(PmsSkuInfo.class);
+        e.createCriteria().andEqualTo("id",skuId);
+        List<PmsSkuInfo> pmsSkuInfosList = pmsSkuInfoMapper.selectByExample(e);
+
+        Example expImg = new Example(PmsSkuImage.class);
+        expImg.createCriteria().andEqualTo("skuId",skuId);
+        List<PmsSkuImage> pmsSkuImages = pmsSkuImageMapper.selectByExample(expImg);
+        if (pmsSkuInfosList.size() > 0){
+            pmsSkuInfosList.get(0).setSkuImageList(pmsSkuImages);
+            return pmsSkuInfosList.get(0);
+        }
+        return null;
     }
 }
