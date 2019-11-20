@@ -43,7 +43,7 @@ public class SkuServiceImpl implements SkuService {
                 skuImage.setSkuId(spuId);
                 pmsSkuImageMapper.insertSelective(skuImage);
             }
-
+            
             List<PmsSkuSaleAttrValue> skuSaleAttrValueList = pmsSkuInfo.getSkuSaleAttrValueList();
             for (PmsSkuSaleAttrValue skuSaleAttrValue:skuSaleAttrValueList) {
                 skuSaleAttrValue.setSkuId(spuId);

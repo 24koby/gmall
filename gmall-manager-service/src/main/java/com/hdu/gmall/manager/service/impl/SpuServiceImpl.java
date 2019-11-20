@@ -49,6 +49,12 @@ public class SpuServiceImpl  implements SpuService {
             for (PmsProductSaleAttr saleAttr:spuSaleAttrList) {
                 saleAttr.setProductId(pmsProductInfo.getId());
                 pmsProductSaleAttrMapper.insert(saleAttr);
+
+                List<PmsProductSaleAttrValue> spuSaleAttrValueList = saleAttr.getSpuSaleAttrValueList();
+                for (PmsProductSaleAttrValue spuSaleAttrValue:spuSaleAttrValueList) {
+                    spuSaleAttrValue.setProductId(pmsProductInfo.getId());
+                    pmsProductSaleAttrValueMapper.insertSelective(spuSaleAttrValue);
+                }
             }
         } catch (Exception e) {
             return "error";
@@ -64,7 +70,7 @@ public class SpuServiceImpl  implements SpuService {
         for (PmsProductSaleAttr saleAttr: pmsProductSaleAttrList) {
             Example exp = new Example(PmsProductSaleAttrValue.class);
             exp.createCriteria().andEqualTo("productId",spuId);
-            exp.createCriteria().andEqualTo("saleAttrId",saleAttr.getId());
+            exp.createCriteria().andEqualTo("saleAttrId",saleAttr.getSaleAttrId());
             List<PmsProductSaleAttrValue> pmsProductSaleAttrValuesList = pmsProductSaleAttrValueMapper.selectByExample(exp);
             saleAttr.setSpuSaleAttrValueList(pmsProductSaleAttrValuesList);
         }
@@ -84,6 +90,12 @@ public class SpuServiceImpl  implements SpuService {
         Example e = new Example(PmsProductSaleAttr.class);
         e.createCriteria().andEqualTo("productId",spuId);
         List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductSaleAttrMapper.selectByExample(e);
+        return pmsProductSaleAttrList;
+    }
+
+    @Override
+    public List<PmsProductSaleAttr> spuSaleAttrListCheckBySku(String productId, String skuId) {
+        List<PmsProductSaleAttr> pmsProductSaleAttrList = pmsProductSaleAttrMapper.selectSpuSaleAttrListCheckBySku(productId,skuId);
         return pmsProductSaleAttrList;
     }
 
