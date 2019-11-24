@@ -55,8 +55,8 @@ public class SkuServiceImpl implements SkuService {
         return "success";
     }
 
-    @Override
-    public PmsSkuInfo getSkuInfoById(String skuId) {
+
+    public PmsSkuInfo getSkuByIdFromDb(String skuId){
         Example e = new Example(PmsSkuInfo.class);
         e.createCriteria().andEqualTo("id",skuId);
         List<PmsSkuInfo> pmsSkuInfosList = pmsSkuInfoMapper.selectByExample(e);
@@ -69,6 +69,19 @@ public class SkuServiceImpl implements SkuService {
             return pmsSkuInfosList.get(0);
         }
         return null;
+    }
+
+    @Override
+    public PmsSkuInfo getSkuInfoById(String skuId) {
+        PmsSkuInfo pmsSkuInfo = new PmsSkuInfo();
+
+//       连接缓存
+
+//        查询缓存
+
+//        缓存不命中，查询数据库
+
+        return pmsSkuInfo;
     }
 
     @Override
