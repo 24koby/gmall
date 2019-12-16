@@ -18,15 +18,7 @@ public class GmallManagerWebApplicationTests {
 
     @Test
     public void contextLoads() throws IOException, MyException {
-        String path = GmallManagerWebApplicationTests.class.getResource("/tracker.conf").getPath();
-        ClientGlobal.init(path);
-        TrackerClient client = new TrackerClient();
-        TrackerServer trackerServer = client.getConnection();
-        StorageClient storageClient = new StorageClient(trackerServer,null);
-        String[] uploadFile = storageClient.upload_file("C:/timg.jpg", "jpg", null);
-        for (String uploadInfo: uploadFile) {
-            System.out.println(uploadInfo);
-        }
+
     }
 
 
